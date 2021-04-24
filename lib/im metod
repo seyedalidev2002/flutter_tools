@@ -1,0 +1,62 @@
+yMapToMap(YamlMap map , Map<String, dynamic> myMap){
+    map.forEach((key, value) {
+      if(value.runtimeType.toString() == "YamlMap"){
+        print("---------------");
+        Map<String, dynamic> map = Map();
+        yMapToMap(value, map);
+        myMap[key] = map;
+      }
+      else{
+        myMap[key] = value;
+      }  
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+   // const developerData = {
+            //   'name': "Martin D'vloper",
+            //   'job': 'Developer',
+            //   'skill': 'Elite',
+            //   'employed': true,
+            //   'foods': ['Apple', 'Orange', 'Strawberry', 'Mango'],
+            //   'languages': {
+            //     'perl': 'Elite',
+            //     'python': 'Elite',
+            //     'pascal': 'Lame',
+            //   },
+            //   'education': '4 GCSEs\n3 A-Levels\nBSc in the Internet of Things'
+            // };
+
+            File file2 = File(r"G:\PROGRAMING\Flutter\Projects\flutter_tools\pubspec.yaml");
+            Map<String, dynamic> myMap = Map();
+            YamlMap doc = loadYaml(await file2.readAsString());
+            yMapToMap(doc , myMap);
+            myMap['dependencies']['ali'] = "0000000000000000000";
+            print(json2yaml(myMap));
+            // print(myMap.toString());
+            print("done");
+            // print(await file2.readAsString());
+            // return;
+            // final file = OpenFilePicker()
+            //   ..filterSpecification = {
+            //     'Word Document (*.doc)': '*.doc',
+            //     'Web Page (*.htm; *.html)': '*.htm;*.html',
+            //     'Text Document (*.txt)': '*.txt',
+            //     'All Files': '*.*'
+            //   }
+            //   ..defaultFilterIndex = 0
+            //   ..defaultExtension = 'doc'
+            //   ..title = 'Select a document';
+
+            // final result = file.getFile();
+            // if (result != null) {
+            //   print(result.path);
+            // }
