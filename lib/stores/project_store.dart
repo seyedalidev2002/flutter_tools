@@ -8,6 +8,8 @@ abstract class _ProjectStore with Store{
   @observable
   ProjectModel projectModel;
 
+  _ProjectStore(this.projectModel);
+
   @action
   addAsset(){
 

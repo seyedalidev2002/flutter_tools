@@ -11,22 +11,26 @@ class FirstPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MainStore store = Provider.of<MainStore>(context);
-    return BasePage(
-      leftWidget: getLeftSide(store),
-      rightWidget: getRightSide(store)
+    return Scaffold(
+      body: BasePage(
+        leftWidget: getLeftSide(store , context),
+        rightWidget: getRightSide(store)
+      ),
     );
   }
   Widget getRightSide(MainStore store){
     return Center(child: Text("sjdkaldsj"),);
   }
-  Widget getLeftSide(MainStore store) {
+  Widget getLeftSide(MainStore store , BuildContext context) {
     return BaseLeftSide(
       title: "Proejcts",
       content: Expanded(
         child: Center(
           child: MaterialButton(
-            child: Text("Add new project"),
-            onPressed: (){},
+            minWidth:200 ,
+            height: 45,
+            child: Text("New projectw" , style: TextStyle(fontWeight: FontWeight.bold ),),
+            onPressed: (){store.addNewProject(context);},
             textColor: AppColors.deepGreen,
             color: AppColors.yellow,
           ),
