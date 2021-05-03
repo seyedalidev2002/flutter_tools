@@ -1,5 +1,6 @@
 
 
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:fhir_yaml/fhir_yaml.dart';
 import 'package:filepicker_windows/filepicker_windows.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,13 @@ import 'package:yaml/yaml.dart';
 
 void main() {
   runApp(MyApp());
+  doWhenWindowReady(() {
+    final initialSize = Size(850, 500);
+    appWindow.minSize = initialSize;
+    appWindow.size = initialSize;
+    appWindow.alignment = Alignment.center;
+    appWindow.show();
+  });
 }
 
 class MyApp extends StatelessWidget {

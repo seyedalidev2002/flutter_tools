@@ -22,7 +22,9 @@ class ProjectModel {
   }
 
   static Future<ProjectModel> fromPubspec(File file) async {
-    List<String> folders = file.path.split('/');
+    List<String> folders = file.path.split(Platform.isWindows ? r"\" : "/");
+
+    print(file.path);
     // String title = folders[folders.length - 2];
 
     Map<String, dynamic> myMap = Map();
@@ -31,9 +33,12 @@ class ProjectModel {
     _yamlToMap(yamlMap, myMap);
     List assets = myMap['flutter']['assets'];
     List<AssetModel> assetModelsList = [];
+
     assets.forEach((element) {
-      assetModelsList.add(AssetModel("aa", element));
+      assetModelsList
+          .add(AssetModel(element.toString().split("/").last, element));
     });
-    return ProjectModel(title: "title", assets: assetModelsList, path: file.path);
+    return ProjectModel(
+        title: myMap['name'], assets: assetModelsList, path: file.path);
   }
 }

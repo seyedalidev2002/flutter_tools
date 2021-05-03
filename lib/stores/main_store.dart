@@ -38,8 +38,12 @@ abstract class _MainStore with Store {
 
     final result = file.getFile();
     if (result != null) {
-      projectStore = ProjectStore(await ProjectModel.fromPubspec(result));
-      Navigator.of(context).pushReplacementNamed(MainPage.ROUTE_NAME);
+      try {
+        projectStore = ProjectStore(await ProjectModel.fromPubspec(result));
+        Navigator.of(context).pushReplacementNamed(MainPage.ROUTE_NAME);
+      } catch (e) {
+        print("File has some problems");
+      }
     }
   }
 }

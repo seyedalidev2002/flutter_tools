@@ -1,3 +1,4 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tools/consts/colors.dart';
 
@@ -7,25 +8,40 @@ class BasePage extends StatelessWidget {
   final Widget rightWidget, leftWidget;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      child: Row(
-        children: [
-          Expanded(
-            flex:3,
-            child: Container(
-              height: double.infinity,
-              color: AppColors.deepGreen, child: leftWidget),
+    return Column(
+      children: [
+       
+        Expanded(
+          child: Container(
+            height: double.infinity,
+            width: double.infinity,
+            color: AppColors.lightGreen,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Material(
+                    elevation: 16,
+                    color: AppColors.deepGreen,
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(20),
+                        bottomRight: Radius.circular(20)),
+                    child: Container(height: double.infinity, child: leftWidget),
+                  ),
+                ),
+                
+                Expanded(
+                  flex: 5,
+                  child: Container(
+                      height: double.infinity,
+                      color: AppColors.lightGreen,
+                      child: rightWidget),
+                )
+              ],
+            ),
           ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              height: double.infinity,
-              color: AppColors.lightGreen, child: rightWidget),
-          )
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
