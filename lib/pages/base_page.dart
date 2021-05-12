@@ -3,45 +3,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tools/consts/colors.dart';
 
 class BasePage extends StatelessWidget {
-  const BasePage({Key key, this.rightWidget, this.leftWidget})
-      : super(key: key);
-  final Widget rightWidget, leftWidget;
+  const BasePage({Key key, this.child, this.title}) : super(key: key);
+  final Widget child;
+  final String title;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-       
-        Expanded(
-          child: Container(
-            height: double.infinity,
-            width: double.infinity,
-            color: AppColors.lightGreen,
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Material(
-                    elevation: 16,
-                    color: AppColors.deepGreen,
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(20),
-                        bottomRight: Radius.circular(20)),
-                    child: Container(height: double.infinity, child: leftWidget),
-                  ),
-                ),
-                
-                Expanded(
-                  flex: 5,
-                  child: Container(
-                      height: double.infinity,
-                      color: AppColors.lightGreen,
-                      child: rightWidget),
-                )
-              ],
+    return WindowBorder(
+      color: AppColors.deepGreen,
+      child: Scaffold(
+        backgroundColor: AppColors.lightGreen,
+        body: Column(
+          children: [
+            SizedBox(
+              height: 10,
             ),
-          ),
+            Row(children: [
+              SizedBox(width: 24),
+              Text(
+                title,
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold , fontSize: 18),
+              ),
+              Expanded(child: Container(height: 20, child: MoveWindow()))
+            ]),
+            SizedBox(
+              height: 50,
+            ),
+            Expanded(child: child)
+          ],
         ),
-      ],
+      ),
     );
   }
 }

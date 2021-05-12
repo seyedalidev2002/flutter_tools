@@ -5,9 +5,10 @@ import 'package:yaml/yaml.dart';
 
 class ProjectModel {
   final String title, path;
+  final Map<String, dynamic> yamlMap;
   bool isValid = false;
   final List<AssetModel> assets;
-  ProjectModel({this.title, this.path, this.assets});
+  ProjectModel({this.title, this.path, this.assets, this.yamlMap});
 
   static _yamlToMap(YamlMap map, Map<String, dynamic> myMap) {
     map.forEach((key, value) {
@@ -23,8 +24,15 @@ class ProjectModel {
 
   static Future<ProjectModel> fromPubspec(File file) async {
     List<String> folders = file.path.split(Platform.isWindows ? r"\" : "/");
+    String folderStr = "";
+    for (int i = 0; i < folders.length - 1; i++) {
+      if (i != 0)
+        folderStr = folderStr + (Platform.isWindows ? r"\" : "/") + folders[i];
+      else
+        folderStr += folders[i];
+    }
 
-    print(file.path);
+    print(folderStr);
     // String title = folders[folders.length - 2];
 
     Map<String, dynamic> myMap = Map();
@@ -32,6 +40,7 @@ class ProjectModel {
 
     _yamlToMap(yamlMap, myMap);
     List assets = myMap['flutter']['assets'];
+    
     List<AssetModel> assetModelsList = [];
 
     assets.forEach((element) {
@@ -39,6 +48,9 @@ class ProjectModel {
           .add(AssetModel(element.toString().split("/").last, element));
     });
     return ProjectModel(
-        title: myMap['name'], assets: assetModelsList, path: file.path);
+        title: myMap['name'],
+        assets: assetModelsList,
+        path: folderStr,
+        yamlMap: myMap);
   }
 }

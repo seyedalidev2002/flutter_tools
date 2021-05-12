@@ -16,7 +16,8 @@ class MainPage extends StatelessWidget {
     MainStore store = Provider.of<MainStore>(context);
     return Scaffold(
       body: BasePage(
-          leftWidget: getLeftSide(store), rightWidget: getRightSide(store)),
+          
+         ),
     );
   }
 
@@ -43,7 +44,7 @@ class MainPage extends StatelessWidget {
                   "add new asset",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                onPressed: () {},
+                onPressed: ()=>store.projectStore.addAsset(),
                 textColor: AppColors.deepGreen,
                 color: AppColors.yellow,
               ),
@@ -58,6 +59,14 @@ class MainPage extends StatelessWidget {
       },
     );
     return BaseLeftSide(
+      trailing: InkWell(
+        radius: 10,
+        onTap: () => store.projectStore.addAsset(),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
       title: "${store.projectStore.projectModel.title}'s assets",
       content: Expanded(child: child),
     );

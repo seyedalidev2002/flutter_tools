@@ -1,9 +1,8 @@
-
-
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:fhir_yaml/fhir_yaml.dart';
 import 'package:filepicker_windows/filepicker_windows.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tools/pages/aboutus_page.dart';
 import 'package:flutter_tools/pages/base_page.dart';
 import 'package:flutter_tools/pages/first_page.dart';
 import 'package:flutter_tools/pages/main_page.dart';
@@ -33,8 +32,9 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blueGrey,
         ),
         routes: {
-          '/':(_)=>FirstPage(),
-          MainPage.ROUTE_NAME :(_)=> MainPage(),
+          '/': (_) => FirstPage(),
+          MainPage.ROUTE_NAME: (_) => MainPage(),
+          AboutusPage.ROUTE_NAME: (_) => AboutusPage()
         },
       ),
     );
