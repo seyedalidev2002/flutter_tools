@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 
 void main() async {
   await Hive.initFlutter();
-  await Hive.openBox(DBService.mainBox);
+  await Hive.openBox(DBService.projects);
   runApp(MyApp());
   doWhenWindowReady(() {
     final initialSize = Size(850, 500);

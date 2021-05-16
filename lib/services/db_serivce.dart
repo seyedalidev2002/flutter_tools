@@ -5,15 +5,18 @@ import 'package:hive/hive.dart';
 
 class DBService {
   static const mainBox = "mainBox";
-  static const _projects = "projects";
-  static Future<List<ProjectModel>> getProjects() async {
-    List projectList = Hive.box(mainBox).get(_projects, defaultValue: []);
-    List<ProjectModel> result = [];
-    for (Map<String, dynamic> map in projectList)
-      result.add(await ProjectModel.fromPubspec(File(map['path'])));
-    return result;
+  static const projects = "projects";
+  static List<ProjectModel> getProjects()  {
+    var map = Hive.box(projects).toMap();
+    List<ProjectModel> list = [];
+    map.forEach((key, value) {
+      print(key);
+      list.add(ProjectModel.fromJson(value));
+    });
+    return list;
   }
-  static saveProject(ProjectModel) async{
-    // Hive.box(_projects).add(value)
+
+  static saveProject(ProjectModel model) async {
+    await Hive.box(projects).add(model.toJson());
   }
 }

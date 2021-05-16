@@ -26,12 +26,14 @@ class ProjectRowItem extends StatelessWidget {
             SizedBox(
               width: 16,
             ),
-            Text(
-              projectModel.path,
-              overflow: TextOverflow.ellipsis,
+            Expanded(
+              child: Text(
+                projectModel.path,
+                //overflow: TextOverflow.ellipsis,
+              ),
             ),
             SizedBox(width: 16),
-            Spacer(),
+           
             IconButton(icon: Icon(Icons.remove , color: Colors.red,), onPressed: () { Provider.of<MainStore>(context , listen: false).deleteProject(id-1);})
           ],
         ),

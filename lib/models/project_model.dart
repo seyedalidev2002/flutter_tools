@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_tools/models/asstes_model.dart';
@@ -53,7 +54,17 @@ class ProjectModel {
         path: file.path,
         yamlMap: myMap);
   }
-
+  String toJson(){
+    var map = {
+      "title":title,
+      "path":path,
+    };
+    return jsonEncode(map);
+  }
+  static ProjectModel fromJson(String json){
+    Map<String , dynamic> map = jsonDecode(json);
+    return ProjectModel(path: map['path'] , title: map["title"]);
+  }
   static ProjectModel fromMap(Map<String , dynamic> map){
     // return ProjectModel.fromPubspec(File(map['path']))
   }

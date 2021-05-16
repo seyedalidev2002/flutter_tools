@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_tools/consts/colors.dart';
+import 'package:flutter_tools/models/project_model.dart';
 import 'package:flutter_tools/stores/main_store.dart';
 import 'package:flutter_tools/stores/project_store.dart';
 import 'package:flutter_tools/widgets/base_left_side.dart';
+import 'package:flutter_tools/widgets/base_page_content.dart';
+import 'package:flutter_tools/widgets/custome_button.dart';
 import 'package:provider/provider.dart';
 
 import 'base_page.dart';
@@ -13,24 +16,41 @@ class MainPage extends StatelessWidget {
   static const ROUTE_NAME = "/MainPage";
   @override
   Widget build(BuildContext context) {
-    MainStore store = Provider.of<MainStore>(context);
+    ProjectStore store = Provider.of<MainStore>(context).projectStore;
     return Scaffold(
       body: BasePage(
-          
-         ),
+        backButton: true,
+        title: store.projectModel.title,
+        child: BasePageContent(
+            title: "Assets",
+            icon: Icon(
+              Icons.account_balance_rounded,
+              size: 70,
+              color: AppColors.white,
+            ),
+            child: Column(
+              children: [
+                Expanded(child: _getAssets(store)),
+                CustomButton(
+                  onPressed: () {
+                    Provider.of<MainStore>(context, listen: false)
+                        .addNewProject(context);
+                  },
+                  title: "Add new project",
+                ),
+                SizedBox(
+                  height: 32,
+                )
+              ],
+            )),
+      ),
     );
   }
 
-  Widget getRightSide(MainStore store) {
-    return Center(
-      child: Text("drop your files here"),
-    );
-  }
-
-  Widget getLeftSide(MainStore store) {
+  Widget _getAssets(ProjectStore projectStore) {
     Widget child = Observer(
       builder: (context) {
-        var assets = store.projectStore.projectModel.assets ?? [];
+        var assets = projectStore.projectModel.assets ?? [];
         if (assets.length == 0)
           return Column(
             children: [
@@ -44,7 +64,7 @@ class MainPage extends StatelessWidget {
                   "add new asset",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                onPressed: ()=>store.projectStore.addAsset(),
+                onPressed: () => projectStore.addAsset(),
                 textColor: AppColors.deepGreen,
                 color: AppColors.yellow,
               ),
@@ -58,18 +78,7 @@ class MainPage extends StatelessWidget {
         );
       },
     );
-    return BaseLeftSide(
-      trailing: InkWell(
-        radius: 10,
-        onTap: () => store.projectStore.addAsset(),
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-      ),
-      title: "${store.projectStore.projectModel.title}'s assets",
-      content: Expanded(child: child),
-    );
+    return child;
   }
 }
 

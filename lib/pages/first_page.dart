@@ -16,7 +16,7 @@ class FirstPage extends StatelessWidget {
   static const ROUTE_NAME = "FirstPage";
   @override
   Widget build(BuildContext context) {
-    MainStore store = Provider.of<MainStore>(context);
+    
     return BasePage(
       trailing:IconButton(icon: Icon(Icons.info) , onPressed: ()=>Navigator.of(context).pushNamed(AboutusPage.ROUTE_NAME),),
       title: "Flutter Tools",
@@ -43,7 +43,7 @@ class FirstPage extends StatelessWidget {
   _getprojectList() {
     return Observer(builder: (ctx) {
       MainStore store = ctx.read();
-      print(store.onPage);
+      print(store.state);
       switch (store.state) {
         case MainState.init:
           store.getProjects();
