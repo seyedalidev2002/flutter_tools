@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:filepicker_windows/filepicker_windows.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +14,14 @@ part 'main_store.g.dart';
 class MainStore = _MainStore with _$MainStore;
 
 enum Pages { firstPage, mainPage, aboutUs }
+enum MainState{init , loading , finished}
 
 abstract class _MainStore with Store {
   @observable
   Pages onPage = Pages.firstPage;
+
+  @observable
+  MainState state = MainState.init;
 
   DbStore dbStore;
   ProjectStore projectStore;
@@ -24,8 +30,24 @@ abstract class _MainStore with Store {
   }
 
   List<ProjectModel> projectsList = [];
+  @action
+  getProjects() {
+    state = MainState.loading;
+    projectsList.add(ProjectModel(title: "Test project" , path: "c:/users/user/dev/flutter/pubspec.yaml"));
+        projectsList.add(ProjectModel(title: "Test project" , path: "c:/users/user/dev/flutter/pubspec.yaml"));
 
-  getProjects() {}
+    print("finish");
+    state = MainState.finished;
+  }
+  @action
+  openProject(BuildContext context , ProjectModel projectModel)async{
+    // projectStore = ProjectStore(await ProjectModel.fromPubspec(File(projectModel.path)));
+    //     Navigator.of(context).pushReplacementNamed(MainPage.ROUTE_NAME);
+  }
+  @action
+  deleteProject(int id){
+
+  }
   @action
   addNewProject(BuildContext context) async {
     final file = OpenFilePicker()

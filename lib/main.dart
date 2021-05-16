@@ -1,16 +1,20 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:fhir_yaml/fhir_yaml.dart';
-import 'package:filepicker_windows/filepicker_windows.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tools/pages/aboutus_page.dart';
-import 'package:flutter_tools/pages/base_page.dart';
 import 'package:flutter_tools/pages/first_page.dart';
 import 'package:flutter_tools/pages/main_page.dart';
+import 'package:flutter_tools/services/db_serivce.dart';
 import 'package:flutter_tools/stores/main_store.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:yaml/yaml.dart';
 
-void main() {
+
+
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox(DBService.mainBox);
   runApp(MyApp());
   doWhenWindowReady(() {
     final initialSize = Size(850, 500);

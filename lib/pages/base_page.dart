@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tools/consts/colors.dart';
 
 class BasePage extends StatelessWidget {
-  const BasePage({Key key, this.child, this.title}) : super(key: key);
-  final Widget child;
+  const BasePage({Key key, this.child, this.title, this.trailing, this.backButton = false}) : super(key: key);
+  final Widget child , trailing;
   final String title;
+  final bool backButton;
   @override
   Widget build(BuildContext context) {
     return WindowBorder(
@@ -14,17 +15,28 @@ class BasePage extends StatelessWidget {
         backgroundColor: AppColors.lightGreen,
         body: Column(
           children: [
-            SizedBox(
-              height: 10,
-            ),
+            
             Row(children: [
               SizedBox(width: 24),
+              if (backButton)
+                IconButton(icon: Icon(Icons.arrow_back), onPressed: ()=>Navigator.of(context).pop()),
+              if (!backButton)
+                SizedBox(width: 24),
               Text(
                 title,
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold , fontSize: 18),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
               ),
-              Expanded(child: Container(height: 20, child: MoveWindow()))
+
+              if(trailing!=null)
+                trailing,
+              Expanded(child: Container(height: 20, child: MoveWindow())),
+              GestureDetector(
+                onTap: ()=>appWindow.close(),
+                child: Icon(Icons.close )),
+                SizedBox(width: 8),
             ]),
             SizedBox(
               height: 50,

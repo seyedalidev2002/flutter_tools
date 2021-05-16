@@ -24,19 +24,15 @@ mixin _$ProjectStore on _ProjectStore, Store {
     });
   }
 
-  final _$_ProjectStoreActionController =
-      ActionController(name: '_ProjectStore');
+  final _$addAssetAsyncAction = AsyncAction('_ProjectStore.addAsset');
 
   @override
-  dynamic addAsset() {
-    final _$actionInfo = _$_ProjectStoreActionController.startAction(
-        name: '_ProjectStore.addAsset');
-    try {
-      return super.addAsset();
-    } finally {
-      _$_ProjectStoreActionController.endAction(_$actionInfo);
-    }
+  Future addAsset() {
+    return _$addAssetAsyncAction.run(() => super.addAsset());
   }
+
+  final _$_ProjectStoreActionController =
+      ActionController(name: '_ProjectStore');
 
   @override
   dynamic deleteAsset() {

@@ -15,7 +15,7 @@ class ContentTitle extends StatelessWidget {
         Container(
             padding: EdgeInsets.only(left: padding),
             child: Row(children: [
-              Icon(Icons.info_outline, color: AppColors.white, size: 70),
+            icon,
               SizedBox(width: 16),
               Text(title , style: TextStyle(color: AppColors.white , fontWeight: FontWeight.w600 , fontSize: 18),)
             ])),

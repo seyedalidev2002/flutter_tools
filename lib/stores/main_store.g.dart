@@ -24,10 +24,65 @@ mixin _$MainStore on _MainStore, Store {
     });
   }
 
+  final _$stateAtom = Atom(name: '_MainStore.state');
+
+  @override
+  MainState get state {
+    _$stateAtom.reportRead();
+    return super.state;
+  }
+
+  @override
+  set state(MainState value) {
+    _$stateAtom.reportWrite(value, super.state, () {
+      super.state = value;
+    });
+  }
+
+  final _$openProjectAsyncAction = AsyncAction('_MainStore.openProject');
+
+  @override
+  Future openProject(BuildContext context, ProjectModel projectModel) {
+    return _$openProjectAsyncAction
+        .run(() => super.openProject(context, projectModel));
+  }
+
+  final _$addNewProjectAsyncAction = AsyncAction('_MainStore.addNewProject');
+
+  @override
+  Future addNewProject(BuildContext context) {
+    return _$addNewProjectAsyncAction.run(() => super.addNewProject(context));
+  }
+
+  final _$_MainStoreActionController = ActionController(name: '_MainStore');
+
+  @override
+  dynamic getProjects() {
+    final _$actionInfo = _$_MainStoreActionController.startAction(
+        name: '_MainStore.getProjects');
+    try {
+      return super.getProjects();
+    } finally {
+      _$_MainStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic deleteProject(int id) {
+    final _$actionInfo = _$_MainStoreActionController.startAction(
+        name: '_MainStore.deleteProject');
+    try {
+      return super.deleteProject(id);
+    } finally {
+      _$_MainStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
-onPage: ${onPage}
+onPage: ${onPage},
+state: ${state}
     ''';
   }
 }

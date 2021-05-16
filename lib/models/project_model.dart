@@ -23,16 +23,16 @@ class ProjectModel {
   }
 
   static Future<ProjectModel> fromPubspec(File file) async {
-    List<String> folders = file.path.split(Platform.isWindows ? r"\" : "/");
-    String folderStr = "";
-    for (int i = 0; i < folders.length - 1; i++) {
-      if (i != 0)
-        folderStr = folderStr + (Platform.isWindows ? r"\" : "/") + folders[i];
-      else
-        folderStr += folders[i];
-    }
+    // List<String> folders = file.path.split(Platform.isWindows ? r"\" : "/");
+    // String folderStr = "";
+    // for (int i = 0; i < folders.length - 1; i++) {
+    //   if (i != 0)
+    //     folderStr = folderStr + (Platform.isWindows ? r"\" : "/") + folders[i];
+    //   else
+    //     folderStr += folders[i];
+    // }
 
-    print(folderStr);
+    // print(folderStr);
     // String title = folders[folders.length - 2];
 
     Map<String, dynamic> myMap = Map();
@@ -50,7 +50,11 @@ class ProjectModel {
     return ProjectModel(
         title: myMap['name'],
         assets: assetModelsList,
-        path: folderStr,
+        path: file.path,
         yamlMap: myMap);
+  }
+
+  static ProjectModel fromMap(Map<String , dynamic> map){
+    // return ProjectModel.fromPubspec(File(map['path']))
   }
 }
