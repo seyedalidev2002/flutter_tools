@@ -33,10 +33,9 @@ class MainPage extends StatelessWidget {
                 Expanded(child: _getAssets(store)),
                 CustomButton(
                   onPressed: () {
-                    Provider.of<MainStore>(context, listen: false)
-                        .addNewProject(context);
+                    store.addAsset();
                   },
-                  title: "Add new project",
+                  title: "New Asset",
                 ),
                 SizedBox(
                   height: 32,
@@ -57,17 +56,7 @@ class MainPage extends StatelessWidget {
               Spacer(),
               Text("no assets detected"),
               Spacer(),
-              MaterialButton(
-                minWidth: 150,
-                height: 38,
-                child: Text(
-                  "add new asset",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                onPressed: () => projectStore.addAsset(),
-                textColor: AppColors.deepGreen,
-                color: AppColors.yellow,
-              ),
+             
             ],
           );
         return ListView.builder(

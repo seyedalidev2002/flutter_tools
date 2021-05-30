@@ -21,6 +21,7 @@ abstract class _MainStore with Store {
   @observable
   Pages onPage = Pages.firstPage;
 
+  
   @observable
   MainState state = MainState.init;
 
@@ -33,7 +34,7 @@ abstract class _MainStore with Store {
   List<ProjectModel> projectsList = [];
   @action
   getProjects() async{
-    state = MainState.loading;
+   // state = MainState.loading;
     // projectsList.add(ProjectModel(
     //     title: "Test project", path: "c:/users/user/dev/flutter/pubspec.yaml"));
     // projectsList.add(ProjectModel(

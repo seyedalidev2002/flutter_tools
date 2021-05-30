@@ -29,7 +29,7 @@ class FirstPage extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Expanded(child: _getprojectList()),
+              Expanded(child: ProjectList()),
               CustomButton(
                 onPressed: () {Provider.of<MainStore>(context , listen: false).addNewProject(context);},
                 title: "Add new project",
@@ -40,9 +40,18 @@ class FirstPage extends StatelessWidget {
     );
   }
 
-  _getprojectList() {
+}
+
+class ProjectList extends StatelessWidget {
+  const ProjectList({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Observer(builder: (ctx) {
-      MainStore store = ctx.read();
+      MainStore store = Provider.of<MainStore>(ctx);
+      print(store.projectsList);
       print(store.state);
       switch (store.state) {
         case MainState.init:
